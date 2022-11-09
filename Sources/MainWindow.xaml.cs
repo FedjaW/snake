@@ -14,10 +14,10 @@ namespace Game.Snake
         int score = 0;
         int maxScore = 0;
 
-        Snake snake = new Snake();
-        DispatcherTimer timer = new DispatcherTimer();
-        DispatcherTimer timer2 = new DispatcherTimer();
-        Food food = new Food();
+        Snake snake = new ();
+        DispatcherTimer timer = new ();
+        DispatcherTimer timer2 = new ();
+        Food food = new ();
 
         public MainWindow()
         {
@@ -29,9 +29,9 @@ namespace Game.Snake
             timer2.Interval = TimeSpan.FromSeconds(0.001); // update time of Input
             timer2.Tick += UpdateInput;
 
-            Screen.Children.Add(food.e); // add food
+            Screen.Children.Add(Food.UIElement); // add food
 
-            for (int i = 0; i < Snake.lengthOfSnake; i++) // add snake body
+            for (int i = 0; i < Snake.LengthOfSnake; i++) // add snake body
             {
                 Screen.Children.Add(snake.body[i]);
             }
@@ -45,36 +45,39 @@ namespace Game.Snake
 
         private void UpdateInput(object sender, EventArgs e)
         {
-            snake.ChangeDirection();
+            Snake.ChangeDirection();
         }
 
         bool createNewFood;
         private void UpdateScreen(object sender, EventArgs e)
         {
-
             snake.MoveForward();
 
             // game over when colliding with the edge of the screen
             if (snake.X < 0 || snake.X >= Screen.ActualWidth || snake.Y >= Screen.ActualHeight || snake.Y < 0)
+            {
                 Restart();
+            }
 
             // game over when colliding with the snake body
-            for (int i = 0; i < Snake.lengthOfSnake; i++)
+            for (int i = 0; i < Snake.LengthOfSnake; i++)
             {
                 if (snake.X == snake._x[i] && snake.Y == snake._y[i])
+                {
                     Restart();
+                }
             }
 
             // snake eats food
             if (snake.X == food.X && snake.Y == food.Y)
             {
                 snake.EatAndGrow();
-                Screen.Children.Add(snake.body[Snake.lengthOfSnake - 1]); // add new bodypart of snake to the snake
+                Screen.Children.Add(snake.body[Snake.LengthOfSnake - 1]); // add new bodypart of snake to the snake
 
                 do
                 {
                     food.CreateFood(); // create new food at a random place
-                    for (int i = 0; i < Snake.lengthOfSnake; i++)
+                    for (int i = 0; i < Snake.LengthOfSnake; i++)
                     {
                         if ((food.X == snake._x[i] && food.Y == snake._y[i]) || (food.X == snake.X && food.Y == snake.Y))
                         {
@@ -106,21 +109,25 @@ namespace Game.Snake
                 maxScore = score;
                 lblMaxScore.Content = maxScore.ToString();
             }
+
             score = 0;
             lblScore.Content = score.ToString();
             Screen.Children.Clear();
             snake.body.Clear();
-            Snake.lengthOfSnake = 5;
+
+            Snake.LengthOfSnake = 5;
             snake.X = 180;
             snake.Y = 160;
 
             // create body of snake
-            for (int i = 0; i < Snake.lengthOfSnake; i++)
+            for (int i = 0; i < Snake.LengthOfSnake; i++)
             {
-                Ellipse ellipse = new Ellipse();
-                ellipse.Width = Snake.sizeOfSnake;
-                ellipse.Height = Snake.sizeOfSnake;
-                // ellipse.Fill = Brushes.Yellow;
+                Ellipse ellipse = new ()
+                {
+                    Width = Snake.SizeOfSnake,
+                    Height = Snake.SizeOfSnake
+                    // Fill = Brushes.Yellow;
+                };
                 snake.body.Add(ellipse);
 
                 // draw body at first on the same position as head
@@ -131,10 +138,12 @@ namespace Game.Snake
             }
 
             Screen.Children.Add(snake.head); // add snakehead
-            Screen.Children.Add(food.e); // add food
+            Screen.Children.Add(Food.UIElement); // add food
 
-            for (int i = 0; i < Snake.lengthOfSnake; i++) // add snake body
+            for (int i = 0; i < Snake.LengthOfSnake; i++) // add snake body
+            {
                 Screen.Children.Add(snake.body[i]);
+            }
         }
     }
 }

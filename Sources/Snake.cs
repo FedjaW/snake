@@ -8,48 +8,47 @@ namespace Game.Snake
 {
     public class Snake
     {
-        int x;  // x Position of snakehead
-        int y;  // y Position of snakehead
-
-        public static int lengthOfSnake = 5;
-        public static int sizeOfSnake = 20;
-
         public Ellipse head;
         public List<Ellipse> body = new();
-        // brush snakeColour; // color of snake
 
-        public int X { get { return x; } set { x = value; } }
-        public int Y { get { return y; } set { y = value; } }
+        public static int LengthOfSnake { get; set; } = 5;
+        public static int SizeOfSnake { get; set; } = 20;
 
-        public int[] _x = new int[lengthOfSnake + 500];
-        public int[] _y = new int[lengthOfSnake + 500];
+        public int X { get; set; }
+        public int Y { get; set; }
 
-        public static Direction direction { get; set; }
+        public int[] _x = new int[LengthOfSnake + 500];
+        public int[] _y = new int[LengthOfSnake + 500];
+
+        public static Direction Direction { get; set; }
 
         public Snake()
         {
-
             // set initial coordiantes
             X = 180;
             Y = 160;
 
             // create head of snake
-            head = new Ellipse();
-            head.Width = sizeOfSnake;
-            head.Height = sizeOfSnake;
-            head.Fill = Brushes.Red;
+            head = new Ellipse
+            {
+                Width = SizeOfSnake,
+                Height = SizeOfSnake,
+                Fill = Brushes.Red
+            };
 
             // initial position of Snake
             Canvas.SetLeft(head, X); // 180
             Canvas.SetTop(head, Y);  // 170
 
             // create body of snake
-            for (int i = 0; i < lengthOfSnake; i++)
+            for (int i = 0; i < LengthOfSnake; i++)
             {
-                Ellipse ellipse = new Ellipse();
-                ellipse.Width = sizeOfSnake;
-                ellipse.Height = sizeOfSnake;
-                // ellipse.Fill = Brushes.Yellow;
+                var ellipse = new Ellipse()
+                {
+                    Width = SizeOfSnake,
+                    Height = SizeOfSnake
+                    // Fill = Brushes.Yellow;
+                };
                 body.Add(ellipse);
 
                 // draw body at first on the same position as head
@@ -64,7 +63,7 @@ namespace Game.Snake
         public void MoveForward()
         {
             // body
-            for (int i = (lengthOfSnake - 1); i >= 0; i--)
+            for (int i = (LengthOfSnake - 1); i >= 0; i--)
             {
                 // draw first body part at old head position
                 if (i == 0)
@@ -86,14 +85,14 @@ namespace Game.Snake
             }
 
 
-            if (direction == Direction.Right)
-                X += sizeOfSnake;
-            else if (direction == Direction.Up)
-                Y -= sizeOfSnake;
-            else if (direction == Direction.Left)
-                X -= sizeOfSnake;
-            else if (direction == Direction.Down)
-                Y += sizeOfSnake;
+            if (Direction == Direction.Right)
+                X += SizeOfSnake;
+            else if (Direction == Direction.Up)
+                Y -= SizeOfSnake;
+            else if (Direction == Direction.Left)
+                X -= SizeOfSnake;
+            else if (Direction == Direction.Down)
+                Y += SizeOfSnake;
 
             // set position of head relativ to canvas
             Canvas.SetLeft(head, X); // 180
@@ -104,29 +103,38 @@ namespace Game.Snake
         }
 
 
-        public void ChangeDirection()
+        public static void ChangeDirection()
         {
-            if (Keyboard.IsKeyDown(Key.Right) && (direction != Direction.Right) && (direction != Direction.Left))
-                direction = Direction.Right;
-            else if (Keyboard.IsKeyDown(Key.Left) && (direction != Direction.Left) && (direction != Direction.Right))
-                direction = Direction.Left;
-            else if (Keyboard.IsKeyDown(Key.Up) && (direction != Direction.Up) && (direction != Direction.Down))
-                direction = Direction.Up;
-            else if ((Keyboard.IsKeyDown(Key.Down) && direction != Direction.Down) && (direction != Direction.Up))
-                direction = Direction.Down;
+            if (Keyboard.IsKeyDown(Key.Right) && (Direction != Direction.Right) && (Direction != Direction.Left))
+            {
+                Direction = Direction.Right;
+            }
+            else if (Keyboard.IsKeyDown(Key.Left) && (Direction != Direction.Left) && (Direction != Direction.Right))
+            {
+                Direction = Direction.Left;
+            }
+            else if (Keyboard.IsKeyDown(Key.Up) && (Direction != Direction.Up) && (Direction != Direction.Down))
+            {
+                Direction = Direction.Up;
+            }
+            else if ((Keyboard.IsKeyDown(Key.Down) && Direction != Direction.Down) && (Direction != Direction.Up))
+            {
+                Direction = Direction.Down;
+            }
         }
 
 
         public void EatAndGrow()
         {
-            Ellipse ellipse = new Ellipse();
-
-            ellipse.Width = sizeOfSnake;
-            ellipse.Height = sizeOfSnake;
+            var ellipse = new Ellipse
+            {
+                Width = SizeOfSnake,
+                Height = SizeOfSnake
+            };
 
             body.Add(ellipse);
 
-            lengthOfSnake++;
+            LengthOfSnake++;
         }
     }
 }

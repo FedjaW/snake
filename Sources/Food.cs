@@ -13,9 +13,14 @@ namespace Game.Snake
         public int X { get { return x; } set { x = value; } }
         public int Y { get { return y; } set { y = value; } }
 
-        public Ellipse e = new Ellipse();
+        readonly Random random = new ();
 
-        Random random = new Random();
+        public static Ellipse UIElement = new ()
+        { 
+            Width = Snake.SizeOfSnake,
+            Height = Snake.SizeOfSnake,
+            Fill = Brushes.Blue
+        };
 
         public Food()
         {
@@ -24,17 +29,14 @@ namespace Game.Snake
 
         public void CreateFood()
         {
-            e.Width = Snake.sizeOfSnake;
-            e.Height = Snake.sizeOfSnake;
-            e.Fill = Brushes.Blue;
             int randomNumber_X = random.Next(0, 500); // 490 = (width of screen - 10)
             int randomNumber_Y = random.Next(0, 360); // 340 = (height of screen - 10)
 
             X = randomNumber_X + (20 - (randomNumber_X % 20)) - 20;
             Y = randomNumber_Y + (20 - (randomNumber_Y % 20)) - 20;
 
-            Canvas.SetLeft(e, X);
-            Canvas.SetTop(e, Y);
+            Canvas.SetLeft(UIElement, X);
+            Canvas.SetTop(UIElement, Y);
         }
     }
 }
