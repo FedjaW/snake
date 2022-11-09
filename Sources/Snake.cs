@@ -15,8 +15,8 @@ namespace Game.Snake
         public static int sizeOfSnake = 20;
 
         public Ellipse head;
-        public List<Ellipse> body = new List<Ellipse>();
-        // Brush snakeColour; // colour of snake
+        public List<Ellipse> body = new();
+        // brush snakeColour; // color of snake
 
         public int X { get { return x; } set { x = value; } }
         public int Y { get { return y; } set { y = value; } }
@@ -29,7 +29,7 @@ namespace Game.Snake
         public Snake()
         {
 
-            // Set initial coordiantes.
+            // set initial coordiantes
             X = 180;
             Y = 160;
 
@@ -49,10 +49,10 @@ namespace Game.Snake
                 Ellipse ellipse = new Ellipse();
                 ellipse.Width = sizeOfSnake;
                 ellipse.Height = sizeOfSnake;
-                //ellipse.Fill = Brushes.Yellow;
+                // ellipse.Fill = Brushes.Yellow;
                 body.Add(ellipse);
 
-                // Draw body at first on the same position as head
+                // draw body at first on the same position as head
                 _x[i] = X;
                 _y[i] = Y;
                 Canvas.SetLeft(body[i], X);
@@ -66,7 +66,7 @@ namespace Game.Snake
             // body
             for (int i = (lengthOfSnake - 1); i >= 0; i--)
             {
-                // Draw first body part at old head position
+                // draw first body part at old head position
                 if (i == 0)
                 {
                     _x[0] = X;
@@ -75,7 +75,7 @@ namespace Game.Snake
                     Canvas.SetTop(body[0], _y[0]);
                     body[0].Fill = Brushes.Black;
                 }
-                else // Draw rest of body
+                else // draw rest of body
                 {
                     _x[i] = _x[i - 1];
                     _y[i] = _y[i - 1];
@@ -95,11 +95,11 @@ namespace Game.Snake
             else if (direction == Direction.Down)
                 Y += sizeOfSnake;
 
-            // Set position of head relativ to Canvas.
+            // set position of head relativ to canvas
             Canvas.SetLeft(head, X); // 180
             Canvas.SetTop(head, Y);  // 170
 
-            // Fill the head of the snake with red colour.
+            // fill the head of the snake with red colour
             head.Fill = Brushes.Red;
         }
 
@@ -120,9 +120,12 @@ namespace Game.Snake
         public void EatAndGrow()
         {
             Ellipse ellipse = new Ellipse();
+
             ellipse.Width = sizeOfSnake;
             ellipse.Height = sizeOfSnake;
+
             body.Add(ellipse);
+
             lengthOfSnake++;
         }
     }
