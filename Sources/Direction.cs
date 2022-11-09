@@ -14,9 +14,4 @@ namespace Game.Snake
         Left,
         Right,
     };
-
-    public class Settings
-    {
-        public static Direction direction { get; set; }
-    }
 }

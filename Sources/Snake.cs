@@ -21,8 +21,10 @@ namespace Game.Snake
         public int X { get { return x; } set { x = value; } }
         public int Y { get { return y; } set { y = value; } }
 
-        public int[] _x = new int[lengthOfSnake + 500]; //TODO: Need to be dynamically resized.
-        public int[] _y = new int[lengthOfSnake + 500]; // 450 punkte insgesamt
+        public int[] _x = new int[lengthOfSnake + 500];
+        public int[] _y = new int[lengthOfSnake + 500];
+
+        public static Direction direction { get; set; }
 
         public Snake()
         {
@@ -84,18 +86,19 @@ namespace Game.Snake
             }
 
 
-            if (Settings.direction == Direction.Right)
+            if (direction == Direction.Right)
                 X += sizeOfSnake;
-            else if (Settings.direction == Direction.Up)
+            else if (direction == Direction.Up)
                 Y -= sizeOfSnake;
-            else if (Settings.direction == Direction.Left)
+            else if (direction == Direction.Left)
                 X -= sizeOfSnake;
-            else if (Settings.direction == Direction.Down)
+            else if (direction == Direction.Down)
                 Y += sizeOfSnake;
 
             // Set position of head relativ to Canvas.
             Canvas.SetLeft(head, X); // 180
             Canvas.SetTop(head, Y);  // 170
+
             // Fill the head of the snake with red colour.
             head.Fill = Brushes.Red;
         }
@@ -103,14 +106,14 @@ namespace Game.Snake
 
         public void ChangeDirection()
         {
-            if (Keyboard.IsKeyDown(Key.Right) && (Settings.direction != Direction.Right) && (Settings.direction != Direction.Left))
-                Settings.direction = Direction.Right;
-            else if (Keyboard.IsKeyDown(Key.Left) && (Settings.direction != Direction.Left) && (Settings.direction != Direction.Right))
-                Settings.direction = Direction.Left;
-            else if (Keyboard.IsKeyDown(Key.Up) && (Settings.direction != Direction.Up) && (Settings.direction != Direction.Down))
-                Settings.direction = Direction.Up;
-            else if ((Keyboard.IsKeyDown(Key.Down) && Settings.direction != Direction.Down) && (Settings.direction != Direction.Up))
-                Settings.direction = Direction.Down;
+            if (Keyboard.IsKeyDown(Key.Right) && (direction != Direction.Right) && (direction != Direction.Left))
+                direction = Direction.Right;
+            else if (Keyboard.IsKeyDown(Key.Left) && (direction != Direction.Left) && (direction != Direction.Right))
+                direction = Direction.Left;
+            else if (Keyboard.IsKeyDown(Key.Up) && (direction != Direction.Up) && (direction != Direction.Down))
+                direction = Direction.Up;
+            else if ((Keyboard.IsKeyDown(Key.Down) && direction != Direction.Down) && (direction != Direction.Up))
+                direction = Direction.Down;
         }
 
 

@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
@@ -31,22 +22,25 @@ namespace Game.Snake
         public MainWindow()
         {
             InitializeComponent();
-            timer.Interval = TimeSpan.FromSeconds(0.1); // Speed of snake
+
+            timer.Interval = TimeSpan.FromSeconds(0.1); // speed of snake
             timer.Tick += UpdateScreen;
-            timer2.Interval = TimeSpan.FromSeconds(0.001); // Update time of Input
+
+            timer2.Interval = TimeSpan.FromSeconds(0.001); // update time of Input
             timer2.Tick += UpdateInput;
 
+            Screen.Children.Add(food.e); // add food
 
-            Screen.Children.Add(food.e); // add food.
-
-            for (int i = 0; i < Snake.lengthOfSnake; i++) // add snake body.
+            for (int i = 0; i < Snake.lengthOfSnake; i++) // add snake body
+            {
                 Screen.Children.Add(snake.body[i]);
-            // add snakehead. Execute behind Add(body) because of layered presentation. 
-            // so ist der rote kopf immer im vordergrund
+            }
+
+            // add snakehead. Execute behind Add(body) because of layered presentation
+            // so the red head will always be in the foreground
             Screen.Children.Add(snake.head);
             timer.Start();
             timer2.Start();
-            //addImage();
         }
 
         private void UpdateInput(object sender, EventArgs e)
@@ -57,26 +51,29 @@ namespace Game.Snake
         bool createNewFood;
         private void UpdateScreen(object sender, EventArgs e)
         {
+
             snake.MoveForward();
 
-            // Spielende bei Kollision mit dem Bildschirmrand.
+            // game over when colliding with the edge of the screen
             if (snake.X < 0 || snake.X >= Screen.ActualWidth || snake.Y >= Screen.ActualHeight || snake.Y < 0)
                 Restart();
-            // Spielende bei Kollision mit dem Body
+
+            // game over when colliding with the snake body
             for (int i = 0; i < Snake.lengthOfSnake; i++)
             {
                 if (snake.X == snake._x[i] && snake.Y == snake._y[i])
                     Restart();
             }
-            // Snake eats food.
+
+            // snake eats food
             if (snake.X == food.X && snake.Y == food.Y)
             {
                 snake.EatAndGrow();
-                Screen.Children.Add(snake.body[Snake.lengthOfSnake - 1]); // add new bodypart of snake to the snake.
+                Screen.Children.Add(snake.body[Snake.lengthOfSnake - 1]); // add new bodypart of snake to the snake
 
                 do
                 {
-                    food.CreateFood(); // create new food at a random place.
+                    food.CreateFood(); // create new food at a random place
                     for (int i = 0; i < Snake.lengthOfSnake; i++)
                     {
                         if ((food.X == snake._x[i] && food.Y == snake._y[i]) || (food.X == snake.X && food.Y == snake.Y))
@@ -90,7 +87,7 @@ namespace Game.Snake
                 } while (createNewFood);
 
 
-                // Update score
+                // update score
                 score += 10;
                 lblScore.Content = score.ToString();
                 if (score >= 4500)
@@ -100,13 +97,10 @@ namespace Game.Snake
                 }
 
             }
-            //Canvas.SetLeft(newImage, snake.X);
-            //Canvas.SetTop(newImage, snake.Y);
         }
 
         public void Restart()
         {
-            //return; // ------------------- TESTING
             if (score > maxScore)
             {
                 maxScore = score;
@@ -114,30 +108,32 @@ namespace Game.Snake
             }
             score = 0;
             lblScore.Content = score.ToString();
-            Screen.Children.Clear(); // clear Bildschirm
+            Screen.Children.Clear();
             snake.body.Clear();
             Snake.lengthOfSnake = 5;
             snake.X = 180;
             snake.Y = 160;
+
             // create body of snake
             for (int i = 0; i < Snake.lengthOfSnake; i++)
             {
                 Ellipse ellipse = new Ellipse();
                 ellipse.Width = Snake.sizeOfSnake;
                 ellipse.Height = Snake.sizeOfSnake;
-                //ellipse.Fill = Brushes.Yellow;
+                // ellipse.Fill = Brushes.Yellow;
                 snake.body.Add(ellipse);
 
-                // Draw body at first on the same position as head
+                // draw body at first on the same position as head
                 snake._x[i] = snake.X;
                 snake._y[i] = snake.Y;
                 Canvas.SetLeft(snake.body[i], snake.X);
                 Canvas.SetTop(snake.body[i], snake.Y);
             }
-            //addImage();
-            Screen.Children.Add(snake.head); // add snakehead.
-            Screen.Children.Add(food.e); // add food.
-            for (int i = 0; i < Snake.lengthOfSnake; i++) // add snake body.
+
+            Screen.Children.Add(snake.head); // add snakehead
+            Screen.Children.Add(food.e); // add food
+
+            for (int i = 0; i < Snake.lengthOfSnake; i++) // add snake body
                 Screen.Children.Add(snake.body[i]);
         }
     }
