@@ -8,9 +8,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Snake
+namespace Game.Snake
 {
-    public class SnakeX
+    public class Snake
     {
         int x;  // x Position of snakehead
         int y;  // y Position of snakehead
@@ -28,7 +28,7 @@ namespace Snake
         public int[] _x = new int[lengthOfSnake + 500]; //TODO: Need to be dynamically resized.
         public int[] _y = new int[lengthOfSnake + 500]; // 450 punkte insgesamt
 
-        public SnakeX()
+        public Snake()
         {
 
             // Set initial coordiantes.

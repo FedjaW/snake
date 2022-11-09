@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Snake
+namespace Game.Snake
 {
     public class Food
     {
@@ -21,8 +21,8 @@ namespace Snake
 
         public void CreateFood()
         {
-            e.Width = SnakeX.sizeOfSnake;
-            e.Height = SnakeX.sizeOfSnake;
+            e.Width = Snake.sizeOfSnake;
+            e.Height = Snake.sizeOfSnake;
             e.Fill = Brushes.Blue;
             int randomNumber_X = random.Next(0, 500); // 490 = (Width of Bildschirm - 10)
             int randomNumber_Y = random.Next(0, 360); // 340 = (Height of Bildschirm - 10)

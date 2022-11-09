@@ -8,13 +8,12 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace Snake
+namespace Game.Snake
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -24,7 +23,7 @@ namespace Snake
         int score = 0;
         int maxScore = 0;
 
-        SnakeX snake = new SnakeX();
+        Snake snake = new Snake();
         DispatcherTimer timer = new DispatcherTimer();
         DispatcherTimer timer2 = new DispatcherTimer();
         Food food = new Food();
@@ -40,7 +39,7 @@ namespace Snake
 
             Bildschrim.Children.Add(food.e); // add food.
 
-            for (int i = 0; i < SnakeX.lengthOfSnake; i++) // add snake body.
+            for (int i = 0; i < Snake.lengthOfSnake; i++) // add snake body.
                 Bildschrim.Children.Add(snake.body[i]);
             // add snakehead. Execute behind Add(body) because of layered presentation. 
             // so ist der rote kopf immer im vordergrund
@@ -64,7 +63,7 @@ namespace Snake
             if (snake.X < 0 || snake.X >= Bildschrim.ActualWidth || snake.Y >= Bildschrim.ActualHeight || snake.Y < 0)
                 Restart();
             // Spielende bei Kollision mit dem Body
-            for (int i = 0; i < SnakeX.lengthOfSnake; i++)
+            for (int i = 0; i < Snake.lengthOfSnake; i++)
             {
                 if (snake.X == snake._x[i] && snake.Y == snake._y[i])
                     Restart();
@@ -73,12 +72,12 @@ namespace Snake
             if (snake.X == food.X && snake.Y == food.Y)
             {
                 snake.EatAndGrow();
-                Bildschrim.Children.Add(snake.body[SnakeX.lengthOfSnake - 1]); // add new bodypart of snake to the snake.
+                Bildschrim.Children.Add(snake.body[Snake.lengthOfSnake - 1]); // add new bodypart of snake to the snake.
 
                 do
                 {
                     food.CreateFood(); // create new food at a random place.
-                    for (int i = 0; i < SnakeX.lengthOfSnake; i++)
+                    for (int i = 0; i < Snake.lengthOfSnake; i++)
                     {
                         if ((food.X == snake._x[i] && food.Y == snake._y[i]) || (food.X == snake.X && food.Y == snake.Y))
                         {
@@ -117,15 +116,15 @@ namespace Snake
             lblScore.Content = score.ToString();
             Bildschrim.Children.Clear(); // clear Bildschirm
             snake.body.Clear();
-            SnakeX.lengthOfSnake = 5;
+            Snake.lengthOfSnake = 5;
             snake.X = 180;
             snake.Y = 160;
             // create body of snake
-            for (int i = 0; i < SnakeX.lengthOfSnake; i++)
+            for (int i = 0; i < Snake.lengthOfSnake; i++)
             {
                 Ellipse ellipse = new Ellipse();
-                ellipse.Width = SnakeX.sizeOfSnake;
-                ellipse.Height = SnakeX.sizeOfSnake;
+                ellipse.Width = Snake.sizeOfSnake;
+                ellipse.Height = Snake.sizeOfSnake;
                 //ellipse.Fill = Brushes.Yellow;
                 snake.body.Add(ellipse);
 
@@ -138,7 +137,7 @@ namespace Snake
             //addImage();
             Bildschrim.Children.Add(snake.head); // add snakehead.
             Bildschrim.Children.Add(food.e); // add food.
-            for (int i = 0; i < SnakeX.lengthOfSnake; i++) // add snake body.
+            for (int i = 0; i < Snake.lengthOfSnake; i++) // add snake body.
                 Bildschrim.Children.Add(snake.body[i]);
         }
     }
