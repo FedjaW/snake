@@ -11,7 +11,7 @@
             <RowDefinition Height="102*"/>
             <RowDefinition Height="317*"/>
         </Grid.RowDefinitions>
-        <Canvas Name="Bildschrim" HorizontalAlignment="Left" Height="360" Margin="41,22,0,0" VerticalAlignment="Top" Width="500" Background="#FFC9C9C9" Grid.RowSpan="2"/>
+        <Canvas Name="Screen" HorizontalAlignment="Left" Height="360" Margin="41,22,0,0" VerticalAlignment="Top" Width="500" Background="#FFC9C9C9" Grid.RowSpan="2"/>
         <Label x:Name="lblScore" Content="0" HorizontalAlignment="Left" Margin="560,225,0,0" VerticalAlignment="Top" FontFamily="Showcard Gothic" FontSize="36" RenderTransformOrigin="3.7,-1.11" Grid.Row="1"/>
         <Label x:Name="lblMaxScore" Content="0" HorizontalAlignment="Left" Margin="560,22,0,0" VerticalAlignment="Top" FontFamily="Showcard Gothic" FontSize="20"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="360" Margin="41,22,0,0" VerticalAlignment="Top" Width="500" Grid.RowSpan="2"/>

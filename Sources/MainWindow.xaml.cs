@@ -37,13 +37,13 @@ namespace Game.Snake
             timer2.Tick += UpdateInput;
 
 
-            Bildschrim.Children.Add(food.e); // add food.
+            Screen.Children.Add(food.e); // add food.
 
             for (int i = 0; i < Snake.lengthOfSnake; i++) // add snake body.
-                Bildschrim.Children.Add(snake.body[i]);
+                Screen.Children.Add(snake.body[i]);
             // add snakehead. Execute behind Add(body) because of layered presentation. 
             // so ist der rote kopf immer im vordergrund
-            Bildschrim.Children.Add(snake.head);
+            Screen.Children.Add(snake.head);
             timer.Start();
             timer2.Start();
             //addImage();
@@ -60,7 +60,7 @@ namespace Game.Snake
             snake.MoveForward();
 
             // Spielende bei Kollision mit dem Bildschirmrand.
-            if (snake.X < 0 || snake.X >= Bildschrim.ActualWidth || snake.Y >= Bildschrim.ActualHeight || snake.Y < 0)
+            if (snake.X < 0 || snake.X >= Screen.ActualWidth || snake.Y >= Screen.ActualHeight || snake.Y < 0)
                 Restart();
             // Spielende bei Kollision mit dem Body
             for (int i = 0; i < Snake.lengthOfSnake; i++)
@@ -72,7 +72,7 @@ namespace Game.Snake
             if (snake.X == food.X && snake.Y == food.Y)
             {
                 snake.EatAndGrow();
-                Bildschrim.Children.Add(snake.body[Snake.lengthOfSnake - 1]); // add new bodypart of snake to the snake.
+                Screen.Children.Add(snake.body[Snake.lengthOfSnake - 1]); // add new bodypart of snake to the snake.
 
                 do
                 {
@@ -114,7 +114,7 @@ namespace Game.Snake
             }
             score = 0;
             lblScore.Content = score.ToString();
-            Bildschrim.Children.Clear(); // clear Bildschirm
+            Screen.Children.Clear(); // clear Bildschirm
             snake.body.Clear();
             Snake.lengthOfSnake = 5;
             snake.X = 180;
@@ -135,10 +135,10 @@ namespace Game.Snake
                 Canvas.SetTop(snake.body[i], snake.Y);
             }
             //addImage();
-            Bildschrim.Children.Add(snake.head); // add snakehead.
-            Bildschrim.Children.Add(food.e); // add food.
+            Screen.Children.Add(snake.head); // add snakehead.
+            Screen.Children.Add(food.e); // add food.
             for (int i = 0; i < Snake.lengthOfSnake; i++) // add snake body.
-                Bildschrim.Children.Add(snake.body[i]);
+                Screen.Children.Add(snake.body[i]);
         }
     }
 }
