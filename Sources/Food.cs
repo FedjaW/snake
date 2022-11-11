@@ -13,10 +13,10 @@ namespace Game.Snake
         public int X { get { return x; } set { x = value; } }
         public int Y { get { return y; } set { y = value; } }
 
-        readonly Random random = new ();
+        readonly Random random = new();
 
-        public static Ellipse UIElement = new ()
-        { 
+        public static Ellipse UIElement = new()
+        {
             Width = Snake.SizeOfSnake,
             Height = Snake.SizeOfSnake,
             Fill = Brushes.Blue
@@ -32,8 +32,8 @@ namespace Game.Snake
             int randomNumber_X = random.Next(0, 500); // 490 = (width of screen - 10)
             int randomNumber_Y = random.Next(0, 360); // 340 = (height of screen - 10)
 
-            X = randomNumber_X + (20 - (randomNumber_X % 20)) - 20;
-            Y = randomNumber_Y + (20 - (randomNumber_Y % 20)) - 20;
+            X = randomNumber_X - (randomNumber_X % 20);
+            Y = randomNumber_Y - (randomNumber_Y % 20);
 
             Canvas.SetLeft(UIElement, X);
             Canvas.SetTop(UIElement, Y);
