@@ -10,10 +10,10 @@ namespace Game.Snake
         public int X { get; set; }
         public int Y { get; set; }
 
-        readonly Random random = new ();
+        readonly Random random = new();
 
-        public static Ellipse UIElement = new ()
-        { 
+        public static Ellipse UIElement = new()
+        {
             Width = Snake.SizeOfSnake,
             Height = Snake.SizeOfSnake,
             Fill = Brushes.Blue
